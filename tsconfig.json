@@ -7,12 +7,6 @@
       "esnext"
     ],
     "esModuleInterop": true,
-    "include": [
-      "src/**/*.ts", /* Include every ts file in source folder */
-    ],
-    "exclude": [
-      "node_modules", /* exclude everything in  node_modules */
-    ]
   }
-  
+
 }
