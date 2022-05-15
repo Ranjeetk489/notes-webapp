@@ -68,8 +68,6 @@ app.post('/delete_trash_note:id', authUtils, deleteTrashNote);
 //route to restore trash note
 app.post('/restore_trash_note:id', authUtils, restoreTrashNote);
 
-
-
 const server = app.listen(process.env.PORT||PORT, () =>
     console.log(`🚀 Server ready on ${process.env.PORT}`)
 )
