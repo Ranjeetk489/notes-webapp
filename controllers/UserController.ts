@@ -11,9 +11,13 @@ export async function userInfo(req:Request, res:Response) {
                 userId: payload.userId!,
             }
         })
+        const {userId, username, email, createdAt} = user!
         res.status(201).json({
             success: true,
-            user
+            userId,
+            username,
+            email,
+            createdAt
         })
     } catch (error) {
         res.status(500).json({
