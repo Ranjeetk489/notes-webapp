@@ -1,14 +1,14 @@
 // import {payload } from './utils/authUtils';
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
-import { login, register } from '../notes-backend-v1/controllers/AuthController';
+import { login, register } from './controllers/AuthController';
 import { authUtils } from '../notes-backend-v1/utils/authUtils';
 import { refreshToken } from '../notes-backend-v1/utils/refreshTokenUtil';
 import cookieParser = require('cookie-parser');
-import { addNewNote, deleteNote, editExistingNote, getAllNote, getSingleNote } from '../notes-backend-v1/controllers/NotesController';
-import { addNewArchivedNote, deleteArchivedNote, editExistingArchivedNote, getAllarchivedNotes, getSinglearchivedNote } from '../notes-backend-v1/controllers/ArchiveController';
-import { getAllTrashNotes, getSingleTrashNote, addNewTrashNote, deleteTrashNote, editExistingTrashNote, restoreTrashNote } from '../notes-backend-v1/controllers/TrashController';
-import { userInfo } from '../notes-backend-v1/controllers/UserController';
+import { addNewNote, deleteNote, editExistingNote, getAllNote, getSingleNote } from './controllers/NotesController';
+import { addNewArchivedNote, deleteArchivedNote, editExistingArchivedNote, getAllarchivedNotes, getSinglearchivedNote } from './controllers/ArchiveController';
+import { getAllTrashNotes, getSingleTrashNote, addNewTrashNote, deleteTrashNote, editExistingTrashNote, restoreTrashNote } from './controllers/TrashController';
+import { userInfo } from './controllers/UserController';
 
 
 const prisma = new PrismaClient();
