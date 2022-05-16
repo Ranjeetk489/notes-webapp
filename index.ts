@@ -22,7 +22,8 @@ app.use(cookieParser())
 //User- Management Routes
 app.post('/signup', register);
 app.post('/login', login);
-app.get('user_info', userInfo)
+//protected Route
+app.get('user_info',authUtils, userInfo)
 //protected Route 
 //Refresh Access Token
 app.post('/refresh_token', authUtils, refreshToken)
