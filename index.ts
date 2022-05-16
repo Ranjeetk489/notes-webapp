@@ -23,10 +23,10 @@ app.use(cookieParser())
 app.post('/signup', register);
 app.post('/login', login);
 //protected Route
-app.get('user_info',authUtils, userInfo)
+app.get('user_info',authUtils, userInfo);
 //protected Route 
 //Refresh Access Token
-app.post('/refresh_token', authUtils, refreshToken)
+app.post('/refresh_token', authUtils, refreshToken);
 
 //Notes-Management Routes
 //Protected Routes
@@ -72,6 +72,6 @@ app.post('/delete_trash_note:id', authUtils, deleteTrashNote);
 //route to restore trash note
 app.post('/restore_trash_note:id', authUtils, restoreTrashNote);
 
-const server = app.listen(process.env.PORT||PORT, () =>
-    console.log(`🚀 Server ready on ${process.env.PORT}`)
-)
+const server = app.listen(process.env.PORT||PORT, () => {
+    console.log(`server is ready  at ${process.env.PORT||PORT}`)
+})
