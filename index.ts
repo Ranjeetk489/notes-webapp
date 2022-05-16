@@ -1,13 +1,15 @@
 // import {payload } from './utils/authUtils';
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
-import { login, register } from './controllers/AuthController';
-import { authUtils } from './utils/authUtils';
-import { refreshToken } from './utils/refreshTokenUtil';
+import { login, register } from '../backend/controllers/AuthController';
+import { authUtils } from '../backend/utils/authUtils';
+import { refreshToken } from '../backend/utils/refreshTokenUtil';
 import cookieParser = require('cookie-parser');
-import { addNewNote, deleteNote, editExistingNote, getAllNote, getSingleNote } from './controllers/NotesController';
-import { addNewArchivedNote, deleteArchivedNote, editExistingArchivedNote, getAllarchivedNotes, getSinglearchivedNote } from './controllers/ArchiveController';
-import { getAllTrashNotes, getSingleTrashNote, addNewTrashNote, deleteTrashNote, editExistingTrashNote, restoreTrashNote } from './controllers/TrashController';
+import { addNewNote, deleteNote, editExistingNote, getAllNote, getSingleNote } from '../backend/controllers/NotesController';
+import { addNewArchivedNote, deleteArchivedNote, editExistingArchivedNote, getAllarchivedNotes, getSinglearchivedNote } from '../backend/controllers/ArchiveController';
+import { getAllTrashNotes, getSingleTrashNote, addNewTrashNote, deleteTrashNote, editExistingTrashNote, restoreTrashNote } from '../backend/controllers/TrashController';
+import { userInfo } from './controllers/UserController';
+
 
 const prisma = new PrismaClient();
 
@@ -20,6 +22,7 @@ app.use(cookieParser())
 //User- Management Routes
 app.post('/signup', register);
 app.post('/login', login);
+app.get('user_info', userInfo)
 //protected Route 
 //Refresh Access Token
 app.post('/refresh_token', authUtils, refreshToken)
