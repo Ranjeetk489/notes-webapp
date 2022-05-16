@@ -1,4 +1,4 @@
-import { createAccessToken, createRefreshToken } from './../utils/authUtils';
+import { createAccessToken, createRefreshToken } from '../utils/authUtils';
 import { PrismaClient } from '@prisma/client';
 import express, { Request, Response, NextFunction } from 'express';
 import { hashSync, compareSync, compare } from 'bcrypt';

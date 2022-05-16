@@ -1,9 +1,9 @@
 // import {payload } from './utils/authUtils';
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
-import { login, register } from '../backend/controllers/AuthController';
-import { authUtils } from '../backend/utils/authUtils';
-import { refreshToken } from '../backend/utils/refreshTokenUtil';
+import { login, register } from '../notes-backend-v1/controllers/AuthController';
+import { authUtils } from '../notes-backend-v1/utils/authUtils';
+import { refreshToken } from '../notes-backend-v1/utils/refreshTokenUtil';
 import cookieParser = require('cookie-parser');
 import { addNewNote, deleteNote, editExistingNote, getAllNote, getSingleNote } from '../notes-backend-v1/controllers/NotesController';
 import { addNewArchivedNote, deleteArchivedNote, editExistingArchivedNote, getAllarchivedNotes, getSinglearchivedNote } from '../notes-backend-v1/controllers/ArchiveController';

@@ -1,4 +1,4 @@
-import { payload } from '../../backend/utils/authUtils';
+import { payload } from '../utils/authUtils';
 import { PrismaClient } from '@prisma/client';
 import express, { Request, Response } from 'express';
 
