@@ -23,7 +23,7 @@ app.use(cookieParser())
 app.post('/signup', register);
 app.post('/login', login);
 //protected Route
-app.get('user_info',authUtils, userInfo);
+app.get('/user_info',authUtils, userInfo);
 //protected Route 
 //Refresh Access Token
 app.post('/refresh_token', authUtils, refreshToken);
