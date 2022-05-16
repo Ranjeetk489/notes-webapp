@@ -5,10 +5,10 @@ import { login, register } from '../backend/controllers/AuthController';
 import { authUtils } from '../backend/utils/authUtils';
 import { refreshToken } from '../backend/utils/refreshTokenUtil';
 import cookieParser = require('cookie-parser');
-import { addNewNote, deleteNote, editExistingNote, getAllNote, getSingleNote } from '../backend/controllers/NotesController';
-import { addNewArchivedNote, deleteArchivedNote, editExistingArchivedNote, getAllarchivedNotes, getSinglearchivedNote } from '../backend/controllers/ArchiveController';
-import { getAllTrashNotes, getSingleTrashNote, addNewTrashNote, deleteTrashNote, editExistingTrashNote, restoreTrashNote } from '../backend/controllers/TrashController';
-import { userInfo } from './controllers/UserController';
+import { addNewNote, deleteNote, editExistingNote, getAllNote, getSingleNote } from '../notes-backend-v1/controllers/NotesController';
+import { addNewArchivedNote, deleteArchivedNote, editExistingArchivedNote, getAllarchivedNotes, getSinglearchivedNote } from '../notes-backend-v1/controllers/ArchiveController';
+import { getAllTrashNotes, getSingleTrashNote, addNewTrashNote, deleteTrashNote, editExistingTrashNote, restoreTrashNote } from '../notes-backend-v1/controllers/TrashController';
+import { userInfo } from '../notes-backend-v1/controllers/UserController';
 
 
 const prisma = new PrismaClient();
