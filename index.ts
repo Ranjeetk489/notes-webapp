@@ -9,13 +9,14 @@ import { addNewNote, deleteNote, editExistingNote, getAllNote, getSingleNote } f
 import { addNewArchivedNote, deleteArchivedNote, editExistingArchivedNote, getAllarchivedNotes, getSinglearchivedNote } from './controllers/ArchiveController';
 import { getAllTrashNotes, getSingleTrashNote, addNewTrashNote, deleteTrashNote, editExistingTrashNote, restoreTrashNote } from './controllers/TrashController';
 import { userInfo } from './controllers/UserController';
-
+import cors from 'cors';
 
 const prisma = new PrismaClient();
 
 const app = express();
 const PORT = 3000;
 
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser())
 
