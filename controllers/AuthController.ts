@@ -44,7 +44,7 @@ async function register(req: Request, res: Response) {
         })
     }
     catch (e) {
-        res.send({
+        res.status(503).send({
         success: false,
         message: "Error has occured",
         err: e, 
@@ -77,7 +77,7 @@ async function login(req: Request, res: Response) {
         })
     }
     else {
-        res.send({
+        res.status(401).send({
             success: false,
             message: "email or password is wrong",
         })
