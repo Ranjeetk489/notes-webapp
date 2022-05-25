@@ -1,5 +1,5 @@
 import { payload } from '../utils/authUtils';
-import {  PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import express, { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -49,6 +49,10 @@ async function addNewNote(req: Request, res: Response) {
                 contentId: uuidv4(),
                 userId: payload.userId!,
                 tag: req.body.tag,
+                title: req.body.title,
+                priority: req.body.priority,
+                isPinned: req.body.isPinned,
+                color: req.body.color
         };
         await prisma.note.create({ data: newNote }).then(() => {
                 res.status(201).json({
@@ -66,11 +70,15 @@ async function addNewNote(req: Request, res: Response) {
 
 
 async function editExistingNote(req: Request, res: Response) {
-        try{
+        try {
                 const updateNote = {
                         content: req.body.content,
                         contentId: req.params.id,
                         tag: req.body.tag,
+                        title: req.body.title,
+                        priority: req.body.priority,
+                        isPinned: req.body.isPinned,
+                        color: req.body.color
                 }
                 await prisma.note.update({
                         where: {
@@ -78,10 +86,10 @@ async function editExistingNote(req: Request, res: Response) {
                         },
                         data: updateNote,
                 })
-                res.status(201).send({success: true})
-                }
-        catch(err){
-                res.status(500).json({success: false})
+                res.status(201).send({ success: true })
+        }
+        catch (err) {
+                res.status(500).json({ success: false })
         }
 }
 
@@ -94,13 +102,19 @@ async function deleteNote(req: Request, res: Response) {
                         }
                 })
                 //@ts-ignore
-                const {content, contentId, userId, tag} = singleNote;
-                await prisma.trash.create({ data: {
-                        content,
-                        contentId, 
-                        userId,
-                        tag,
-                } });
+                const { content, contentId, userId, tag, title,color, priority, isPinned } = singleNote;
+                await prisma.trash.create({
+                        data: {
+                                content,
+                                contentId,
+                                userId,
+                                tag,
+                                title,
+                                color,
+                                priority,
+                                isPinned
+                        }
+                });
                 await prisma.note.delete({
                         where: {
                                 contentId: id,
@@ -120,4 +134,4 @@ async function deleteNote(req: Request, res: Response) {
         }
 }
 
-export {getAllNote, getSingleNote, addNewNote, deleteNote,editExistingNote}
+export { getAllNote, getSingleNote, addNewNote, deleteNote, editExistingNote }

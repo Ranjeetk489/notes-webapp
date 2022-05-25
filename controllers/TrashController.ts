@@ -48,7 +48,11 @@ async function addNewTrashNote(req: Request, res: Response) {
         content: req.body.content,
         contentId: uuidv4(),
         userId: payload.userId!,
-        tag: req.body.tag
+        tag: req.body.tag,
+        title: req.body.title,
+        color: req.body.color,
+        priority: req.body.priority,
+        isPinned: req.body.isPinned,
     }
     await prisma.trash.create({ data: newTrashNote }).then(() => {
         res.status(201).json({
@@ -117,12 +121,16 @@ async function restoreTrashNote(req: Request, res: Response) {
             }
         })
         //@ts-ignore
-        const { contentId, content, userId, tag } = trashNote;
+        const { contentId, content, userId, tag, title, color, priority, isPinned } = trashNote;
         await prisma.note.create({
             data: {
                 contentId,
                 content,
                 userId,
+                title,
+                color,
+                priority,
+                isPinned,
                 tag
             }
         })

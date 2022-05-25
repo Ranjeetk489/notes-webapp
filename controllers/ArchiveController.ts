@@ -48,6 +48,10 @@ async function addNewArchivedNote(req: Request, res: Response) {
         content: req.body.content,
         contentId: uuidv4(),
         userId: payload.userId!,
+        title: req.body.title,
+        color: req.body.color,
+        priority: req.body.priority,
+        isPinned: req.body.isPinned,
         tag: req.body.tag
     }
     console.log(newArchived);
@@ -70,6 +74,10 @@ async function editExistingArchivedNote(req: Request, res: Response) {
     const updateArchived = {
         content: req.body.content,
         contentId: req.params.id,
+        title: req.body.title,
+        color: req.body.color,
+        priority: req.body.priority,
+        isPinned: req.body.isPinned,
         tag: req.body.tag,
     }
     await prisma.archived.update({
@@ -90,12 +98,16 @@ async function deleteArchivedNote(req: Request, res: Response) {
             }
         })
         //@ts-ignore
-        const { content, contentId, userId, tag } = singleArchived;
+        const { content, contentId, userId, tag, color, title, priority, isPinned } = singleArchived;
         await prisma.trash.create({
             data: {
                 content,
                 contentId,
                 userId,
+                color,
+                title,
+                priority,
+                isPinned,
                 tag
             }
         });
