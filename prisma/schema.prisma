@@ -30,9 +30,13 @@ model Note {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  title   String
+  color   String
   content   String
   contentId String   @unique
   tag       String?
+  isPinned  Boolean @default(false)
+  priority  String?
   User      User?    @relation(fields: [userId], references: [userId])
   userId    String
 
@@ -43,9 +47,13 @@ model Archived {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  title   String
+  color   String
   content   String
   contentId String   @unique
   tag       String?
+  isPinned  Boolean @default(false)
+  priority  String?
   User      User?    @relation(fields: [userId], references: [userId])
   userId    String?
 
@@ -56,9 +64,13 @@ model Trash {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  title   String
+  color   String
   content   String
   contentId String   @unique
   tag       String?
+  isPinned  Boolean @default(false)
+  priority  String?
   User      User?    @relation(fields: [userId], references: [userId])
   userId    String?
 
