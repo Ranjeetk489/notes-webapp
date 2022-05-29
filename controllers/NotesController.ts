@@ -46,7 +46,9 @@ async function getSingleNote(req: Request, res: Response) {
 async function addNewNote(req: Request, res: Response) {
         const newNote = {
                 content: req.body.content,
-                userId: payload.userId!,
+                userId: {
+                        connect: [{payload.userId!}]
+                },
                 tag: req.body.tag,
                 title: req.body.title,
                 priority: req.body.priority,

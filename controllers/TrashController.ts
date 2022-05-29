@@ -47,7 +47,7 @@ async function addNewTrashNote(req: Request, res: Response) {
     const newTrashNote = {
         content: req.body.content,
         contentId: uuidv4(),
-        userId: payload.userId!,
+        user: {connect : {userId: payload.userId!}},
         tag: req.body.tag,
         title: req.body.title,
         color: req.body.color,
