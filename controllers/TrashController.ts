@@ -46,8 +46,7 @@ async function getSingleTrashNote(req: Request, res: Response) {
 async function addNewTrashNote(req: Request, res: Response) {
     const newTrashNote = {
         content: req.body.content,
-        contentId: uuidv4(),
-        user: {connect : [{userId: payload.userId!}]},
+        User: {connect : [{userId: payload.userId!}]},
         tag: req.body.tag,
         title: req.body.title,
         color: req.body.color,
@@ -57,13 +56,13 @@ async function addNewTrashNote(req: Request, res: Response) {
     await prisma.trash.create({ data: newTrashNote }).then(() => {
         res.status(201).json({
             success: true,
-            contentId: newTrashNote.contentId,
         })
     }).catch(err => {
         res.status(500).json({
             success: false,
             contentId: '',
             err: err,
+            userId: payload.userId!,
         })
     })
 }

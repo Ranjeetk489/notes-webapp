@@ -2,6 +2,7 @@ import { payload } from '../utils/authUtils';
 import { PrismaClient } from '@prisma/client';
 import express, { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
+import cuid from 'cuid';
 
 const prisma = new PrismaClient();
 
@@ -12,7 +13,7 @@ async function getAllNote(req: Request, res: Response) {
                 where: {
                         userId: payload.userId!,
                 }
-        }).catch(err => {
+        }).catch((err: any) => {
                 console.log(err);
                 res.status(500).json({
                         success: false,
@@ -30,7 +31,7 @@ async function getSingleNote(req: Request, res: Response) {
                 where: {
                         contentId: req.params.id,
                 }
-        }).catch(err => {
+        }).catch((err: any) => {
                 console.log(err)
                 res.status(500).json({
                         success: false,
@@ -45,28 +46,30 @@ async function getSingleNote(req: Request, res: Response) {
 
 async function addNewNote(req: Request, res: Response) {
         const newNote = {
-                content: req.body.content,
-                user: {
-                        connect: [{userId:payload.userId!}]
-                },
-                tag: req.body.tag,
                 title: req.body.title,
+                color: req.body.color,
+                content: req.body.content,
+                tag: req.body.tag,
                 priority: req.body.priority,
-                isPinned: req.body.isPinned,
-                color: req.body.color
-        };
-        await prisma.note.create({ data: newNote }).then(() => {
+                userId: payload.userId!,
+        }
+        try {
+                await prisma.note.create({
+                        data: newNote,
+                })
                 res.status(201).json({
                         success: true,
+                        response: newNote,
                 })
-        }).catch(err => {
+        }
+        catch (err) {
+                console.log(err);
                 res.status(500).json({
                         success: false,
-                        err: err,
+                        response: 'request failed',
                 })
-        })
+        }
 }
-
 
 async function editExistingNote(req: Request, res: Response) {
         try {
