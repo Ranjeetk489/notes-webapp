@@ -69,10 +69,11 @@ app.get('/single_trash_note:id', authUtils, getSingleTrashNote);
 //route to edit single note base on id of note
 app.post('/edit_trash_note:id', authUtils, editExistingTrashNote);
 //route to delete trash note by id
-app.post('/delete_trash_note:id', authUtils, deleteTrashNote);
+app.post('/delete_trash_note:i/to_trashd', authUtils, deleteTrashNote);
 //route to restore trash note
 app.post('/restore_trash_note:id', authUtils, restoreTrashNote);
 
 const server = app.listen(process.env.PORT||PORT, () => {
     console.log(`server is ready  at ${process.env.PORT||PORT}`)
 })
+

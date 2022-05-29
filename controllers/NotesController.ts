@@ -46,7 +46,6 @@ async function getSingleNote(req: Request, res: Response) {
 async function addNewNote(req: Request, res: Response) {
         const newNote = {
                 content: req.body.content,
-                contentId: uuidv4(),
                 userId: payload.userId!,
                 tag: req.body.tag,
                 title: req.body.title,
@@ -57,12 +56,10 @@ async function addNewNote(req: Request, res: Response) {
         await prisma.note.create({ data: newNote }).then(() => {
                 res.status(201).json({
                         success: true,
-                        contentId: newNote.contentId,
                 })
         }).catch(err => {
                 res.status(500).json({
                         success: false,
-                        contentId: '',
                         err: err,
                 })
         })

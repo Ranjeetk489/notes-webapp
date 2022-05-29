@@ -30,10 +30,10 @@ model Note {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title   String
-  color   String
+  title   String?
+  color   String?
   content   String
-  contentId String   @unique
+  contentId String   @unique @default(cuid())
   tag       String?
   isPinned  Boolean @default(false)
   priority  String?
@@ -47,10 +47,10 @@ model Archived {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title   String
-  color   String
+  title   String?
+  color   String?
   content   String
-  contentId String   @unique
+  contentId String   @unique @default(cuid())
   tag       String?
   isPinned  Boolean @default(false)
   priority  String?
@@ -64,10 +64,10 @@ model Trash {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title   String
-  color   String
+  title   String?
+  color   String?
   content   String
-  contentId String   @unique
+  contentId String   @unique @default(cuid())
   tag       String?
   isPinned  Boolean @default(false)
   priority  String?
