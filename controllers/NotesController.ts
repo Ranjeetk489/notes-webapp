@@ -74,8 +74,8 @@ async function addNewNote(req: Request, res: Response) {
 async function editExistingNote(req: Request, res: Response) {
         try {
                 const updateNote = {
-                        content: req.body.content,
                         contentId: req.params.id,
+                        content: req.body.content,
                         tag: req.body.tag,
                         title: req.body.title,
                         priority: req.body.priority,
@@ -87,7 +87,7 @@ async function editExistingNote(req: Request, res: Response) {
                         },
                         data: updateNote,
                 })
-                res.status(201).send({ success: true })
+                res.status(201).send({ success: updateNote })
         }
         catch (err) {
                 res.status(500).json({ success: false })
