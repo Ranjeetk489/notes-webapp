@@ -79,7 +79,6 @@ async function editExistingNote(req: Request, res: Response) {
                         tag: req.body.tag,
                         title: req.body.title,
                         priority: req.body.priority,
-                        isPinned: req.body.isPinned,
                         color: req.body.color
                 }
                 await prisma.note.update({
