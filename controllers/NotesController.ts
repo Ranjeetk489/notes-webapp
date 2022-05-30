@@ -51,7 +51,7 @@ async function addNewNote(req: Request, res: Response) {
                 content: req.body.content,
                 tag: req.body.tag,
                 priority: req.body.priority,
-                userId: req.body.userId,
+                userId: payload.userId!,
         }
         try {
                 await prisma.note.create({
