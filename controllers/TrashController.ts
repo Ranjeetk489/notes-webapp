@@ -46,34 +46,40 @@ async function getSingleTrashNote(req: Request, res: Response) {
 async function addNewTrashNote(req: Request, res: Response) {
     const newTrashNote = {
         content: req.body.content,
-        User: {connect : [{userId: payload.userId!}]},
         tag: req.body.tag,
         title: req.body.title,
         color: req.body.color,
         priority: req.body.priority,
-        isPinned: req.body.isPinned,
+        userId: payload.userId!
     }
-    await prisma.trash.create({ data: newTrashNote }).then(() => {
+    try {
+        await prisma.note.create({
+            data: newTrashNote,
+        })
         res.status(201).json({
             success: true,
+            response: newTrashNote,
         })
-    }).catch(err => {
+    }
+    catch (err) {
+        console.log(err);
         res.status(500).json({
             success: false,
-            contentId: '',
-            err: err,
-            userId: payload.userId!,
+            response: 'request failed',
         })
-    })
+    }
 }
 
 
 async function editExistingTrashNote(req: Request, res: Response) {
     try {
         const updateTrashNote = {
-            content: req.body.content,
             contentId: req.params.id,
+            content: req.body.content,
             tag: req.body.tag,
+            title: req.body.title,
+            priority: req.body.priority,
+            color: req.body.color
         }
         await prisma.trash.update({
             where: {
@@ -85,6 +91,7 @@ async function editExistingTrashNote(req: Request, res: Response) {
     }
 
     catch (err) {
+        console.log(err)
         res.status(500).json({ success: false })
     }
 }
@@ -141,6 +148,7 @@ async function restoreTrashNote(req: Request, res: Response) {
         res.status(201).json({ success: true, contentId: id });
     }
     catch (err) {
+        console.log(err);
         res.status(500).json({ success: false, err: err });
     }
 }

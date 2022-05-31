@@ -104,7 +104,7 @@ async function deleteNote(req: Request, res: Response) {
                         }
                 })
                 //@ts-ignore
-                const { content, contentId, userId, tag, title,color, priority, isPinned } = singleNote;
+                const { content, contentId, userId, tag, title, color, priority, isPinned } = singleNote;
                 await prisma.trash.create({
                         data: {
                                 content,

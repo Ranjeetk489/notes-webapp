@@ -45,22 +45,20 @@ async function getSinglearchivedNote(req: Request, res: Response) {
 
 async function addNewArchivedNote(req: Request, res: Response) {
     const newArchived = {
-        content: req.body.content,
-        contentId: uuidv4(),
-        userId: payload.userId!,
         title: req.body.title,
         color: req.body.color,
+        content: req.body.content,
+        tag: req.body.tag,
         priority: req.body.priority,
-        isPinned: req.body.isPinned,
-        tag: req.body.tag
+        userId: payload.userId!,
     }
     console.log(newArchived);
     await prisma.archived.create({ data: newArchived }).then(() => {
         res.status(201).json({
             success: true,
-            contentId: newArchived.contentId,
         })
     }).catch(err => {
+        console.log(err);
         res.status(500).json({
             success: false,
             contentId: '',
@@ -72,13 +70,12 @@ async function addNewArchivedNote(req: Request, res: Response) {
 
 async function editExistingArchivedNote(req: Request, res: Response) {
     const updateArchived = {
-        content: req.body.content,
         contentId: req.params.id,
-        title: req.body.title,
-        color: req.body.color,
-        priority: req.body.priority,
-        isPinned: req.body.isPinned,
+        content: req.body.content,
         tag: req.body.tag,
+        title: req.body.title,
+        priority: req.body.priority,
+        color: req.body.color
     }
     await prisma.archived.update({
         where: {
