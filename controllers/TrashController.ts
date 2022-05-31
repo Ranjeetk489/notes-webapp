@@ -127,7 +127,7 @@ async function restoreTrashNote(req: Request, res: Response) {
             }
         })
         //@ts-ignore
-        const { contentId, content, userId, tag, title, color, priority, isPinned } = trashNote;
+        const { contentId, content, userId, tag, title, color, priority } = trashNote;
         await prisma.note.create({
             data: {
                 contentId,
@@ -136,7 +136,7 @@ async function restoreTrashNote(req: Request, res: Response) {
                 title,
                 color,
                 priority,
-                isPinned,
+
                 tag
             }
         })

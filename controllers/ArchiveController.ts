@@ -95,7 +95,7 @@ async function deleteArchivedNote(req: Request, res: Response) {
             }
         })
         //@ts-ignore
-        const { content, contentId, userId, tag, color, title, priority, isPinned } = singleArchived;
+        const { content, contentId, userId, tag, color, title, priority} = singleArchived;
         await prisma.trash.create({
             data: {
                 content,
@@ -104,7 +104,6 @@ async function deleteArchivedNote(req: Request, res: Response) {
                 color,
                 title,
                 priority,
-                isPinned,
                 tag
             }
         });
