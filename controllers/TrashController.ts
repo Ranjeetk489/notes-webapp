@@ -56,9 +56,14 @@ async function addNewTrashNote(req: Request, res: Response) {
         await prisma.note.create({
             data: newTrashNote,
         })
+        const allTrashNotes = await prisma.trash.findMany({
+            where: {
+                userId: payload.userId!,
+            }
+        })
         res.status(201).json({
             success: true,
-            response: newTrashNote,
+            response: allTrashNotes,
         })
     }
     catch (err) {
@@ -81,13 +86,19 @@ async function editExistingTrashNote(req: Request, res: Response) {
             priority: req.body.priority,
             color: req.body.color
         }
+        
         await prisma.trash.update({
             where: {
                 contentId: updateTrashNote.contentId,
             },
             data: updateTrashNote,
         })
-        res.status(201).send({ success: true })
+        const allTrashNotes = await prisma.trash.findMany({
+            where: {
+                userId: payload.userId!,
+            }
+        })
+        res.status(201).send({ success: true , response : allTrashNotes})
     }
 
     catch (err) {
@@ -105,8 +116,14 @@ async function deleteTrashNote(req: Request, res: Response) {
                 contentId: id,
             }
         })
+        const allTrashNotes = await prisma.trash.findMany({
+            where: {
+                userId: payload.userId!,
+            }
+        })
         res.status(201).json({
             success: true,
+            response: allTrashNotes,
         })
     }
     catch (err) {
@@ -136,7 +153,6 @@ async function restoreTrashNote(req: Request, res: Response) {
                 title,
                 color,
                 priority,
-
                 tag
             }
         })
@@ -145,7 +161,12 @@ async function restoreTrashNote(req: Request, res: Response) {
                 contentId: id,
             }
         })
-        res.status(201).json({ success: true, contentId: id });
+        const allTrashNotes = await prisma.trash.findMany({
+            where: {
+                userId: payload.userId!,
+            }
+        })
+        res.status(201).json({ success: true, response: allTrashNotes });
     }
     catch (err) {
         console.log(err);

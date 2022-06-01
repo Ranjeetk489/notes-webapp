@@ -14,7 +14,7 @@ import cors from 'cors';
 const prisma = new PrismaClient();
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 app.use(cors());
 app.use(express.json());
@@ -40,7 +40,8 @@ app.get('/single_note:id', authUtils, getSingleNote);
 //route to edit single note base on id of note
 app.post('/edit_note:id', authUtils, editExistingNote);
 //route to move a note to trash  by id
-app.post('/to_trash:id', authUtils, deleteNote);
+app.post('/trash_note:id', authUtils, deleteNote);
+//route to set a note as pinned
 
 
 //Archive Notes Management Routes
@@ -54,7 +55,7 @@ app.get('/single_archived_note:id', authUtils, getSinglearchivedNote);
 //route to edit single archived note base on id of note
 app.post('/edit_archived_note:id', authUtils, editExistingArchivedNote);
 //route to move archived note to trash by id
-app.post('/to_trash_archive_note:id', authUtils, deleteArchivedNote);
+app.post('/trash_archive_note:id', authUtils, deleteArchivedNote);
 
 
 
@@ -69,7 +70,7 @@ app.get('/single_trash_note:id', authUtils, getSingleTrashNote);
 //route to edit single note base on id of note
 app.post('/edit_trash_note:id', authUtils, editExistingTrashNote);
 //route to delete trash note by id
-app.post('/delete_trash_note:i/to_trashd', authUtils, deleteTrashNote);
+app.post('/delete_trash_note:id', authUtils, deleteTrashNote);
 //route to restore trash note
 app.post('/restore_trash_note:id', authUtils, restoreTrashNote);
 

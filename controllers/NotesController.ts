@@ -57,9 +57,14 @@ async function addNewNote(req: Request, res: Response) {
                 await prisma.note.create({
                         data: newNote,
                 })
+                const allNotes = await prisma.note.findMany({
+                        where: {
+                                userId: payload.userId!,
+                        }
+                })
                 res.status(201).json({
                         success: true,
-                        response: newNote,
+                        response: allNotes,
                 })
         }
         catch (err) {
@@ -87,7 +92,12 @@ async function editExistingNote(req: Request, res: Response) {
                         },
                         data: updateNote,
                 })
-                res.status(201).send({ success: updateNote })
+                const allNotes = await prisma.note.findMany({
+                        where: {
+                                userId: payload.userId!,
+                        }
+                })
+                res.status(201).send({ success: updateNote, response: allNotes })
         }
         catch (err) {
                 console.log(err)
@@ -121,9 +131,14 @@ async function deleteNote(req: Request, res: Response) {
                                 contentId: id,
                         }
                 })
+                const allNotes = await prisma.note.findMany({
+                        where: {
+                                userId: payload.userId!,
+                        }
+                })
                 res.status(201).json({
                         success: true,
-                        contentId,
+                        response: allNotes,
                 })
         }
         catch (err) {

@@ -44,6 +44,7 @@ async function getSinglearchivedNote(req: Request, res: Response) {
 }
 
 async function addNewArchivedNote(req: Request, res: Response) {
+    try {
     const newArchived = {
         title: req.body.title,
         color: req.body.color,
@@ -52,79 +53,112 @@ async function addNewArchivedNote(req: Request, res: Response) {
         priority: req.body.priority,
         userId: payload.userId!,
     }
-    console.log(newArchived);
-    await prisma.archived.create({ data: newArchived }).then(() => {
-        res.status(201).json({
-            success: true,
-        })
-    }).catch(err => {
-        console.log(err);
+    await prisma.archived.create({ data: newArchived })
+    const allarchiveds = await prisma.archived.findMany({
+        where: {
+            userId: payload.userId!,
+        }
+    })
+    res.status(201).json({
+        success: true,
+        response: allarchiveds,
+    })
+
+    }
+    catch(error) {
+        console.log(error);
         res.status(500).json({
             success: false,
             contentId: '',
-            err: err,
+            err: error,
         })
-    })
+    }
 }
 
 
 async function editExistingArchivedNote(req: Request, res: Response) {
-    const updateArchived = {
-        contentId: req.params.id,
-        content: req.body.content,
-        tag: req.body.tag,
-        title: req.body.title,
-        priority: req.body.priority,
-        color: req.body.color
-    }
-    await prisma.archived.update({
-        where: {
-            contentId: updateArchived.contentId,
-        },
-        data: updateArchived,
-    })
-}
-
-async function deleteArchivedNote(req: Request, res: Response) {
     try {
-        console.log(req.params.id);
-        const id = req.params.id;
-        const singleArchived = await prisma.archived.findFirst({
+        const updateArchived = {
+            contentId: req.params.id,
+            content: req.body.content,
+            tag: req.body.tag,
+            title: req.body.title,
+            priority: req.body.priority,
+            color: req.body.color
+        }
+        await prisma.archived.update({
             where: {
-                contentId: id,
-            }
+                contentId: updateArchived.contentId,
+            },
+            data: updateArchived,
         })
-        //@ts-ignore
-        const { content, contentId, userId, tag, color, title, priority} = singleArchived;
-        await prisma.trash.create({
-            data: {
-                content,
-                contentId,
-                userId,
-                color,
-                title,
-                priority,
-                tag
-            }
-        });
-        await prisma.archived.delete({
+        const allarchiveds = await prisma.archived.findMany({
             where: {
-                contentId: id,
+                userId: payload.userId!,
             }
         })
         res.status(201).json({
             success: true,
-            contentId,
-        })
+            response: allarchiveds,
+        });
     }
-    catch (err) {
-        console.log(err);
+    catch (error) {
+        console.log(error);
         res.status(500).json({
             success: false,
-            error: err
+            response: '',
         })
     }
 }
 
 
-export { getAllarchivedNotes, getSinglearchivedNote, addNewArchivedNote, deleteArchivedNote, editExistingArchivedNote }
+
+    async function deleteArchivedNote(req: Request, res: Response) {
+        try {
+            console.log("idadsfsdfsdafsadfsdfd")
+            const id = req.params.id;
+            const singleNote = await prisma.archived.findFirst({
+                where: {
+                    contentId: id,
+                }
+            })
+            //@ts-ignore
+            const { content, contentId, userId, tag, title, color, priority } = singleNote;
+            await prisma.trash.create({
+                data: {
+                    content,
+                    contentId,
+                    userId,
+                    tag,
+                    title,
+                    color,
+                    priority,
+                }
+            });
+            await prisma.archived.delete({
+                where: {
+                    contentId: id,
+                }
+            })
+            const allarchiveds = await prisma.archived.findMany({
+                where: {
+                    userId: payload.userId!,
+                }
+            })
+            res.status(201).json({
+                success: true,
+                response: allarchiveds,
+            })
+        }
+        catch (err) {
+            console.log(err);
+            res.status(500).json({
+                success: false,
+                error: err
+            })
+        }
+    }
+
+
+
+    export { getAllarchivedNotes, getSinglearchivedNote, addNewArchivedNote, deleteArchivedNote, editExistingArchivedNote }
